@@ -1,3 +1,3 @@
 # Building Decision Trees
 
-Experimenting and messing around with decision trees.
+Experimenting with various datasets and building different decision trees
