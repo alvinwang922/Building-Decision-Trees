@@ -6,14 +6,13 @@ import copy
 
 dataset = pd.read_csv('tennis.csv')
 X = dataset.iloc[:, 1:].values
-# print(X)
 attribute = ['outlook', 'temp', 'humidity', 'wind']
 
 
 class Node(object):
     def __init__(self):
-        self.value = None
-        self.decision = None
+        self.value = "og"
+        self.decision = "og"
         self.childs = None
 
 
@@ -45,10 +44,6 @@ def findMaxGain(data, rows, columns):
     retidx = -1
     entropy, ans = findEntropy(data, rows)
     if entropy == 0:
-        """if ans == 1:
-            print("Yes")
-        else:
-            print("No")"""
         return maxGain, retidx, ans
 
     for j in columns:
@@ -62,7 +57,6 @@ def findMaxGain(data, rows, columns):
                 mydict[key] = mydict[key] + 1
         gain = entropy
 
-        # print(mydict)
         for key in mydict:
             yes = 0
             no = 0
@@ -72,15 +66,11 @@ def findMaxGain(data, rows, columns):
                         yes = yes + 1
                     else:
                         no = no + 1
-            # print(yes, no)
             x = yes/(yes+no)
             y = no/(yes+no)
-            # print(x, y)
             if x != 0 and y != 0:
                 gain += (mydict[key] * (x*math.log2(x) + y*math.log2(y)))/14
-        # print(gain)
         if gain > maxGain:
-            # print("hello")
             maxGain = gain
             retidx = j
 
@@ -92,9 +82,6 @@ def buildTree(data, rows, columns):
     maxGain, idx, ans = findMaxGain(X, rows, columns)
     root = Node()
     root.childs = []
-    # print(maxGain
-    #
-    # )
     if maxGain == 0:
         if ans == 1:
             root.value = 'Yes'
@@ -118,7 +105,6 @@ def buildTree(data, rows, columns):
         for i in rows:
             if data[i][idx] == key:
                 newrows.append(i)
-        # print(newrows)
         temp = buildTree(data, newrows, newcolumns)
         temp.decision = key
         root.childs.append(temp)
